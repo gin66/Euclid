@@ -79,12 +79,12 @@ public extension Mesh {
             polygonToEdges[polygon] = edges
         }
         
-        let filteredEdgesToPolygon = edgesToPolygon.filter({
-           (_, p): (Edge, [Polygon]) in p.count == 2
+        var filteredEdgesToPolygon = edgesToPolygon.filter({
+           (e: Edge, p: [Polygon]) in p.count == 2
         })
         
         var submeshes: [Mesh] = []
-        while let pair = edgeToPolygons.first {
+        while let pair = filteredEdgesToPolygon.first {
             var submesh: [Polygon] = []
             var edgesOfSubmesh: Set<Edge> = []
             var edgesToGo: Set<Edge> = []
@@ -94,7 +94,7 @@ public extension Mesh {
             while let edge = edgesToGo.first {
                 edgesToGo.remove(edge)
                 edgesOfSubmesh.insert(edge)
-                let polys = edgeToPolygons.removeValue(forKey: edge)
+                let polys = filteredEdgesToPolygon.removeValue(forKey: edge)
                 for poly in polys! {
                     for e in polygonToEdges[poly]! {
                         if !edgesOfSubmesh.contains(e) {

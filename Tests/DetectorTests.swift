@@ -23,12 +23,26 @@ class DetectorTests: XCTestCase {
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 2)
     }
-    func testCombinedMeshAttached() {
+    func testCombinedMeshAttachedAtFace() {
         let a = Mesh.cube(size:1).translated(by: Vector(1,0,0))
         let b = Mesh.cube(size:1)
         let c = a.union(b)
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 1)
+    }
+    func testCombinedMeshAttachedAtEdge() {
+        let a = Mesh.cube(size:1).translated(by: Vector(1,1,0))
+        let b = Mesh.cube(size:1)
+        let c = a.union(b)
+        let detected = c.detectSubMeshes()
+        XCTAssert(detected.count == 2)
+    }
+    func testCombinedMeshAttachedAtPoint() {
+        let a = Mesh.cube(size:1).translated(by: Vector(1,1,1))
+        let b = Mesh.cube(size:1)
+        let c = a.union(b)
+        let detected = c.detectSubMeshes()
+        XCTAssert(detected.count == 2)
     }
 
     func testDetectFourSubmeshes_0() {

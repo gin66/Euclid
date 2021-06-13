@@ -44,47 +44,11 @@ class DetectorTests: XCTestCase {
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 2)
     }
-
-    func testDetectFourSubmeshes_0() {
-        let a = Mesh.cube(size:50)
-        let b = Mesh.cylinder(radius:30, height:60)
-        let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count == 0)
-    }
-    func testDetectFourSubmeshes_1() {
-        let a = Mesh.cube(size:50)
-        let b = Mesh.cylinder(radius:30, height:60)
-        let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count == 1)
-    }
-    func testDetectFourSubmeshes_2() {
-        let a = Mesh.cube(size:50)
-        let b = Mesh.cylinder(radius:30, height:60)
-        let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count == 2)
-    }
-    func testDetectFourSubmeshes_3() {
-        let a = Mesh.cube(size:50)
-        let b = Mesh.cylinder(radius:30, height:60)
-        let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count == 3)
-    }
     func testDetectFourSubmeshes_4() {
         let a = Mesh.cube(size:50)
         let b = Mesh.cylinder(radius:30, height:60)
         let c = a.subtract(b)
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 4)
-    }
-    func testDetectFourSubmeshes_big() {
-        let a = Mesh.cube(size:50)
-        let b = Mesh.cylinder(radius:30, height:60)
-        let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count > 4)
     }
 }

@@ -79,6 +79,10 @@ public extension Mesh {
             polygonToEdges[polygon] = edges
         }
         
+        let filteredEdgesToPolygon = edgesToPolygon.filter({
+           (_, p): (Edge, [Polygon]) in p.count == 2
+        })
+        
         var submeshes: [Mesh] = []
         while let pair = edgeToPolygons.first {
             var submesh: [Polygon] = []

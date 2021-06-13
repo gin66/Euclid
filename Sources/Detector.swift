@@ -94,14 +94,15 @@ public extension Mesh {
             while let edge = edgesToGo.first {
                 edgesToGo.remove(edge)
                 edgesOfSubmesh.insert(edge)
-                let polys = filteredEdgesToPolygon.removeValue(forKey: edge)
-                for poly in polys! {
-                    for e in polygonToEdges[poly]! {
-                        if !edgesOfSubmesh.contains(e) {
-                            edgesToGo.insert(e)
+                if let polys = filteredEdgesToPolygon.removeValue(forKey: edge) {
+                    for poly in polys! {
+                        for e in polygonToEdges[poly]! {
+                            if !edgesOfSubmesh.contains(e) {
+                                edgesToGo.insert(e)
+                            }
                         }
+                        submesh.append(poly)
                     }
-                    submesh.append(poly)
                 }
             }
             submeshes.append(Mesh(submesh))

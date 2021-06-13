@@ -38,7 +38,7 @@ class TextTests: XCTestCase {
 
     func testTextMeshWithString() {
         #if canImport(CoreText)
-        let text = "Hello"
+        let text = "Hello!"
         let font = CTFontCreateWithName("Helvetica" as CFString, 12, nil)
         let mesh = Mesh(text: text, font: font, depth: 1.0)
         XCTAssertEqual(mesh.bounds.min.z, -0.5)

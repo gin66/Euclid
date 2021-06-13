@@ -95,7 +95,7 @@ public extension Mesh {
                 edgesToGo.remove(edge)
                 edgesOfSubmesh.insert(edge)
                 if let polys = filteredEdgesToPolygon.removeValue(forKey: edge) {
-                    for poly in polys! {
+                    for poly in polys {
                         for e in polygonToEdges[poly]! {
                             if !edgesOfSubmesh.contains(e) {
                                 edgesToGo.insert(e)

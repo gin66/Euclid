@@ -79,7 +79,7 @@ public extension Mesh {
             polygonToEdges[polygon] = edges
         }
         
-        var filteredEdgesToPolygon = edgesToPolygon.filter({
+        var filteredEdgesToPolygon = edgeToPolygon.filter({
            (e: Edge, p: [Polygon]) in p.count == 2
         })
         

@@ -53,44 +53,46 @@ public extension Mesh {
         for polygon in polygons {
             var edges: [Edge] = []
             for i in 0 ..< polygon.vertices.count {
-                for j in i+1 ..< polygon.vertices.count {
-                    var p_i = polygon.vertices[i].position
-                    var p_j = polygon.vertices[j].position
-                    var swap = false
-                    if (p_i.x > p_j.x) {
+                var j = i + 1
+                if j == polygon.vertices.count {
+                    j = 0
+                }
+                var p_i = polygon.vertices[i].position
+                var p_j = polygon.vertices[j].position
+                var swap = false
+                if p_i.x > p_j.x {
+                    swap = true
+                }
+                else if p_i.x == p_j.x {
+                    if p_i.y > p_j.y {
                         swap = true
                     }
-                    else if (p_i.x == p_j.x) {
-                        if (p_i.y > p_j.y) {
+                    else if p_i.y == p_j.y {
+                        if p_i.z > p_j.z {
                             swap = true
                         }
-                        else if (p_i.y == p_j.y) {
-                            if (p_i.z > p_j.z) {
-                                swap = true
-                            }
-                            if (p_i.z == p_j.z) {
-                                print("NOW WHAT ?")
-                            }
+                        if p_i.z == p_j.z {
+                            print("NOW WHAT ?")
                         }
                     }
-                    if swap {
-                        let temp = p_i
-                        p_i = p_j
-                        p_j = temp
-                    }
-                    let e = Edge(p1: p_i, p2: p_j)
-                    edges.append(e)
-                    
-                    var polys = edgeToPolygons.removeValue(forKey: e) ?? []
-                    polys.append(polygon)
-                    edgeToPolygons[e] = polys
                 }
-                polygonToEdges[polygon] = edges
+                if swap {
+                    let temp = p_i
+                    p_i = p_j
+                    p_j = temp
+                }
+                let e = Edge(p1: p_i, p2: p_j)
+                edges.append(e)
+                    
+                var polys = edgeToPolygons.removeValue(forKey: e) ?? []
+                polys.append(polygon)
+                edgeToPolygons[e] = polys
             }
+            polygonToEdges[polygon] = edges
         }
         
         var submeshes: [[Polygon]] = []
-        while let pair = edgeToPolygons.first{
+        while let pair = edgeToPolygons.first {
             var submesh: [Polygon] = []
             var edgesOfSubmesh: Set<Edge> = []
             var edgesToGo: Set<Edge> = []

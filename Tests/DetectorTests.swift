@@ -44,11 +44,18 @@ class DetectorTests: XCTestCase {
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 2)
     }
-    func testDetectFourSubmeshes_4() {
+    func testDetectFourSubmeshes() {
         let a = Mesh.cube(size:50)
         let b = Mesh.cylinder(radius:30, height:60)
         let c = a.subtract(b)
         let detected = c.detectSubMeshes()
         XCTAssert(detected.count == 4)
+    }
+    func testCubeWithHole() {
+        let a = Mesh.cube(size:50)
+        let b = Mesh.cylinder(radius:10, height:60)
+        let c = a.subtract(b)
+        let detected = c.detectSubMeshes()
+        XCTAssert(detected.count == 1)
     }
 }

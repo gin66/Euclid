@@ -55,7 +55,7 @@ class DetectorTests: XCTestCase {
         let a = Mesh.cube(size:50)
         let b = Mesh.cylinder(radius:10, height:60)
         let c = a.subtract(b)
-        let detected = c.detectSubMeshes()
-        XCTAssert(detected.count == 1)
+        let detected = c.detectSubMeshes().count
+        XCTAssert(detected == 1, "detected submeshes \(detected) != 1")
     }
 }

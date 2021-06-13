@@ -34,18 +34,6 @@ private struct Edge: Hashable {
 }
 
 public extension Mesh {
-    /// Returns a new mesh representing the combined volume of the
-    /// mesh parameter and the receiver, with inner faces removed.
-    ///
-    ///     +-------+            +-------+
-    ///     |       |            |       |
-    ///     |   A   |            |       |
-    ///     |    +--+----+   =   |       +----+
-    ///     +----+--+    |       +----+       |
-    ///          |   B   |            |       |
-    ///          |       |            |       |
-    ///          +-------+            +-------+
-    ///
     func detectSubMeshes() -> [Mesh] {
         var polygonToEdges: [Polygon: [Edge]] = [:]
         var edgeToPolygons: [Edge: [Polygon]] = [:] // must be even number of polygons
@@ -91,7 +79,7 @@ public extension Mesh {
             polygonToEdges[polygon] = edges
         }
         
-        var submeshes: [[Polygon]] = []
+        var submeshes: [Mesh] = []
         while let pair = edgeToPolygons.first {
             var submesh: [Polygon] = []
             var edgesOfSubmesh: Set<Edge> = []
@@ -112,12 +100,8 @@ public extension Mesh {
                     submesh.append(poly)
                 }
             }
-            submeshes.append(submesh)
+            submeshes.append(Mesh(submesh))
         }
-        var result: [Mesh] = []
-        for _ in submeshes {
-            result.append(self)
-        }
-        return result
+        return submeshes
     }
 }
